@@ -1,6 +1,7 @@
 import { Router } from "express";
 import path from "path";
 import axios, { AxiosResponse } from "axios";
+import { getVideoList, putVideoList, deleteVideoList } from "../services/Dass";
 
 const routers = Router();
 
@@ -35,6 +36,30 @@ routers.get("/api/Item/:id?", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
+});
+
+routers.get("/api/dass/getVideoList", async (req, res) => {
+  const returnValue = await getVideoList();
+  res.json(returnValue);
+});
+
+routers.post("/api/dass/putVideoList", async (req, res) => {
+  const insertValue = req.body;
+  const returnValue = await putVideoList(insertValue);
+  res.json(returnValue);
+});
+
+routers.get("/api/dass/deleteVideoList", async (req, res) => {
+  const { title } = req.query;
+  console.log(title);
+  let returnValue;
+  if (title) {
+    returnValue = await deleteVideoList(title);
+  } else {
+    returnValue = { error: "Title parameter is missing" };
+  }
+
+  res.json(returnValue);
 });
 
 export default routers;

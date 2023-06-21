@@ -2,6 +2,7 @@ import express, { Request, Response, json, urlencoded } from "express";
 import routers from "./routers/route";
 import path from "path";
 import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express();
 const port = 3003;
@@ -15,6 +16,9 @@ app.use(urlencoded({ extended: true }));
 
 // router
 app.use(routers);
+
+// set env variable
+dotenv.config();
 
 // define static path
 app.use(express.static(path.join(__dirname, "my-react-pjt/build")));
