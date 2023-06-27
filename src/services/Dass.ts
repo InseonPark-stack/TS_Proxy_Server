@@ -76,7 +76,7 @@ export const putVideoList = async (insertValue: InsertValue) => {
   }
 };
 
-// Insert One Dass videoList table
+// Delete One Dass videoList table
 export const deleteVideoList = async (deleteTitle: any) => {
   const apiUrl = process.env.KORE_DASS_API_URL;
   const authToken = process.env.KORE_DASS_AUTH_TOKEN;
