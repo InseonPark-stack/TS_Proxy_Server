@@ -37,7 +37,7 @@ export const getVideoList = async () => {
         return response.data.queryResult;
       })
       .catch((error) => {
-        return error;
+        throw error;
       });
   } catch (error) {
     console.error(error);
@@ -68,7 +68,7 @@ export const putVideoList = async (insertValue: InsertValue) => {
         return response.data.queryResult;
       })
       .catch((error) => {
-        return error;
+        throw error;
       });
     // {
     //     "title": "test",
@@ -112,7 +112,7 @@ export const deleteVideoList = async (deleteTitle: any) => {
         return response.data.queryResult;
       })
       .catch((error) => {
-        return error;
+        throw error;
       });
     // {
     //     "nDeleted": 1
