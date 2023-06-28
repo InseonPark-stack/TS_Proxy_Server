@@ -29,16 +29,12 @@ export const getVideoList = async () => {
       },
     };
 
-    await axios
-      .post(apiUrl + "/VideoList/query?sys_limit=100&sys_offset=0", data, {
-        headers,
-      })
-      .then((response) => {
-        return response.data.queryResult;
-      })
-      .catch((error) => {
-        return error;
-      });
+    const response = await axios.post(
+      apiUrl + "/VideoList/query?sys_limit=100&sys_offset=0",
+      data,
+      { headers }
+    );
+    return response.data.queryResult;
   } catch (error) {
     console.error(error);
   }
@@ -62,14 +58,7 @@ export const putVideoList = async (insertValue: InsertValue) => {
       },
     };
 
-    await axios
-      .post(apiUrl + "/VideoList", data, { headers })
-      .then((response) => {
-        return response.data.queryResult;
-      })
-      .catch((error) => {
-        return error;
-      });
+    const response = await axios.post(apiUrl + "/VideoList", data, { headers });
     // {
     //     "title": "test",
     //     "urlLink": "test",
@@ -81,6 +70,7 @@ export const putVideoList = async (insertValue: InsertValue) => {
     //     "sys_Id": "sys-df8df5d7-bf7f-57d5-ba6f-3442d16c6e91",
     //     "_id": "6492999f765e303c29f1859d"
     // }
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -103,20 +93,14 @@ export const deleteVideoList = async (deleteTitle: any) => {
       },
     };
 
-    const response = await axios
-      .delete(apiUrl + "/VideoList", {
-        headers,
-        data,
-      })
-      .then((response) => {
-        return response.data.queryResult;
-      })
-      .catch((error) => {
-        return error;
-      });
+    const response = await axios.delete(apiUrl + "/VideoList", {
+      headers,
+      data,
+    });
     // {
     //     "nDeleted": 1
     // }
+    return response.data;
   } catch (error) {
     console.error(error);
   }
