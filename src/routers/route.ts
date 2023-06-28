@@ -39,41 +39,44 @@ routers.get("/api/Item/:id?", async (req, res) => {
 });
 
 routers.get("/api/dass/getVideoList", async (req, res) => {
-  const returnValue = await getVideoList();
-  if (returnValue.status == 200) {
+  try {
+    const returnValue = await getVideoList();
     res.status(200).json(returnValue.data.queryResult);
-  } else {
-    res.status(returnValue.status).json(returnValue.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Fetch API 호출 중 오류가 발생했습니다." });
   }
 });
 
 routers.post("/api/dass/putVideoList", async (req, res) => {
-  const insertValue = req.body;
-  if (insertValue.title && insertValue.urlLink) {
-    const returnValue = await putVideoList(insertValue);
-    if (returnValue.status == 200) {
+  try {
+    const insertValue = req.body;
+    if (insertValue.title && insertValue.urlLink) {
+      await putVideoList(insertValue);
       res.status(200).json({ message: "정상적으로 입력완료" });
     } else {
-      res.status(returnValue.status).json(returnValue.data);
+      res.status(400).json({ message: "insertValue 값 오류" });
     }
-  } else {
-    res.status(400).json({ message: "insertValue 값 오류" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Put API 호출 중 오류가 발생했습니다." });
   }
 });
 
 routers.get("/api/dass/deleteVideoList", async (req, res) => {
-  const { title } = req.query;
-  let returnValue;
-  if (title) {
-    returnValue = await deleteVideoList(title);
-    if (returnValue.status == 200) {
+  try {
+    const { title } = req.query;
+    let returnValue;
+    if (title) {
+      await deleteVideoList(title);
       res.status(200).json({ message: "정상적으로 삭제완료" });
     } else {
-      res.status(returnValue.status).json(returnValue.data);
+      returnValue = { error: "Title parameter is missing" };
+      res.status(400).json(returnValue);
     }
-  } else {
-    returnValue = { error: "Title parameter is missing" };
-    res.status(400).json(returnValue);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Delete API 호출 중 오류가 발생했습니다." });
   }
 });
 

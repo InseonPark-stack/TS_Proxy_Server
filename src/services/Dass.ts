@@ -34,9 +34,15 @@ export const getVideoList = async () => {
       data,
       { headers }
     );
-    return response;
+
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+    }
   } catch (error) {
     console.error(error);
+    throw new Error("API 호출 중 오류가 발생했습니다.");
   }
 };
 
@@ -57,7 +63,6 @@ export const putVideoList = async (insertValue: InsertValue) => {
         description: insertValue.description,
       },
     };
-
     const response = await axios.post(apiUrl + "/VideoList", data, { headers });
     // {
     //     "title": "test",
@@ -70,13 +75,19 @@ export const putVideoList = async (insertValue: InsertValue) => {
     //     "sys_Id": "sys-df8df5d7-bf7f-57d5-ba6f-3442d16c6e91",
     //     "_id": "6492999f765e303c29f1859d"
     // }
-    return response;
+
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+    }
   } catch (error) {
     console.error(error);
+    throw new Error("API 호출 중 오류가 발생했습니다.");
   }
 };
 
-// Insert One Dass videoList table
+// Delete One Dass videoList table
 export const deleteVideoList = async (deleteTitle: any) => {
   const apiUrl = process.env.KORE_DASS_API_URL;
   const authToken = process.env.KORE_DASS_AUTH_TOKEN;
@@ -100,8 +111,13 @@ export const deleteVideoList = async (deleteTitle: any) => {
     // {
     //     "nDeleted": 1
     // }
-    return response;
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+    }
   } catch (error) {
     console.error(error);
+    throw new Error("API 호출 중 오류가 발생했습니다.");
   }
 };
