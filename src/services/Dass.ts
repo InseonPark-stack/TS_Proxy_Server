@@ -34,7 +34,7 @@ export const getVideoList = async () => {
       data,
       { headers }
     );
-    return response.data.queryResult;
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -70,7 +70,7 @@ export const putVideoList = async (insertValue: InsertValue) => {
     //     "sys_Id": "sys-df8df5d7-bf7f-57d5-ba6f-3442d16c6e91",
     //     "_id": "6492999f765e303c29f1859d"
     // }
-    return response.data;
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -100,7 +100,7 @@ export const deleteVideoList = async (deleteTitle: any) => {
     // {
     //     "nDeleted": 1
     // }
-    return response.data;
+    return response;
   } catch (error) {
     console.error(error);
   }

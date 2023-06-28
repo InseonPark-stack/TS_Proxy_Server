@@ -34,32 +34,47 @@ routers.get("/api/Item/:id?", async (req, res) => {
     res.json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json();
   }
 });
 
 routers.get("/api/dass/getVideoList", async (req, res) => {
   const returnValue = await getVideoList();
-  res.json(returnValue);
+  if (returnValue.status == 200) {
+    res.status(200).json(returnValue.data.queryResult);
+  } else {
+    res.status(returnValue.status).json(returnValue.data);
+  }
 });
 
 routers.post("/api/dass/putVideoList", async (req, res) => {
   const insertValue = req.body;
-  const returnValue = await putVideoList(insertValue);
-  res.json(returnValue);
+  if (insertValue.title && insertValue.urlLink) {
+    const returnValue = await putVideoList(insertValue);
+    if (returnValue.status == 200) {
+      res.status(200).json({ message: "정상적으로 입력완료" });
+    } else {
+      res.status(returnValue.status).json(returnValue.data);
+    }
+  } else {
+    res.status(400).json({ message: "insertValue 값 오류" });
+  }
 });
 
 routers.get("/api/dass/deleteVideoList", async (req, res) => {
   const { title } = req.query;
-  console.log(title);
   let returnValue;
   if (title) {
     returnValue = await deleteVideoList(title);
+    if (returnValue.status == 200) {
+      res.status(200).json({ message: "정상적으로 삭제완료" });
+    } else {
+      res.status(returnValue.status).json(returnValue.data);
+    }
   } else {
     returnValue = { error: "Title parameter is missing" };
+    res.status(400).json(returnValue);
   }
-
-  res.json(returnValue);
 });
 
 export default routers;
