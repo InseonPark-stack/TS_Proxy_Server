@@ -38,11 +38,13 @@ export const getVideoList = async () => {
     if (response.status === 200) {
       return response;
     } else {
-      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+      throw new Error(
+        "Fetch API 호출이 실패했습니다. 응답 코드: " + response.status
+      );
     }
   } catch (error) {
     console.error(error);
-    throw new Error("API 호출 중 오류가 발생했습니다.");
+    return null;
   }
 };
 
@@ -79,11 +81,13 @@ export const putVideoList = async (insertValue: InsertValue) => {
     if (response.status === 200) {
       return response;
     } else {
-      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+      throw new Error(
+        "Add API 호출이 실패했습니다. 응답 코드: " + response.status
+      );
     }
   } catch (error) {
     console.error(error);
-    throw new Error("API 호출 중 오류가 발생했습니다.");
+    return null;
   }
 };
 
@@ -114,10 +118,12 @@ export const deleteVideoList = async (deleteTitle: any) => {
     if (response.status === 200) {
       return response;
     } else {
-      throw new Error("API 호출이 실패했습니다. 응답 코드: " + response.status);
+      throw new Error(
+        "Delete API 호출이 실패했습니다. 응답 코드: " + response.status
+      );
     }
   } catch (error) {
     console.error(error);
-    throw new Error("API 호출 중 오류가 발생했습니다.");
+    return null;
   }
 };
